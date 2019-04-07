@@ -1,0 +1,38 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block head %}
+    {% include '_head.html' %}
+{% endblock %}
+
+{% block middle %}
+    {{ title|safe }}<br>
+    {{ body|md|safe }}<br>
+
+    <br>
+    <a href="{{ url_for('.about') }}">about</a> | <a href="{{ url_for('.test') }}">test</a>
+    <br>
+
+    {% set links=[
+        ('Home', url_for('.hello_world')),
+        ("About", url_for('.about')),
+        ('Test', url_for('.test')),
+        ("Login", url_for(".login"))
+    ] %}
+
+    {% for label, href in links %}
+        {% if not loop.first %} | {% endif %}
+        <a href="{% if href is current_url %} # {% else %} {{ href }} {% endif %}">{{ label }}</a>
+    {% endfor %}
+
+    <span>{{ self.title() }}</span>
+
+    <br>
+    {% import '_macros.html' as ipt %}
+    {{ ipt.input('username') }}
+    {{ ipt.input('password', type='password') }}
+
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+{% endblock %}

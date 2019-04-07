@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% import '_macros.html' as ipt %}
+{% from "bootstrap/pagination.html" import render_pagination %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+
+
+{% block content %}
+
+    <div class="page-header" >
+        <div class="container" >
+        {{ title|safe }}
+        </div>
+    </div>
+
+{% if current_user.is_authenticated %}
+        {{ current_user.name }} | <a href="{{ url_for('auth.logout') }}">登出</a>
+    {% else %}
+        <a href="{{ url_for('auth.login') }}">登录</a> |
+        <a href="{{ url_for('auth.register') }}">注册</a>
+    {% endif %}
+
+    {{ ipt.input('username') }}
+    {{ ipt.input('password', type='password') }}
+    {% block page_body %}
+        <a href="{{ url_for('.edit') }}">添加新文章</a>
+        <div>
+            {% for post in posts %}
+                <h2><a href="{{ url_for('.post', id=post.id) }}">{{ post.title }}</a></h2>
+                <div>
+                    {{ post.body_html|safe }}
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if pagination %}
+            {{ render_pagination(pagination) }}
+        {% endif %}
+    {% endblock %}
+{% endblock %}
+
+

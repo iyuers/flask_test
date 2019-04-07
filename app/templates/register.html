@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wft %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <div class="container">
+            {{ self.title() }}
+        </div>
+    </div>
+
+    <div class="container">
+    {% for message in get_flashed_messages() %}
+        <div class="alert-info">{{ message }}</div>
+    {% endfor %}
+    {{ wft.quick_form(form) }}
+    </div>
+
+
+{% endblock %}

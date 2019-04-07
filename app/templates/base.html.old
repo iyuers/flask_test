@@ -1,0 +1,10 @@
+{% extends 'bootstrap/base.html' %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+
+{% block content %}
+{% block footer %}
+        <h1>This is Footer</h1>
+{% endblock %}
+{% endblock %}
